@@ -12,3 +12,8 @@ This project contains automated tests for web browser interactions using Playwri
 
 1. Clone the repository
 2. Install dependencies:
+    npm install
+3. Run tests:
+    npx playwright test
+4. Run tests in debug mode:
+    npx playwright test --ui

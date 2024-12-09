@@ -8,9 +8,12 @@ export class AccessPage extends BasePage {
     private readonly helpVideo = this.page.locator('video#integrityadvocate_help_video');
     private readonly closeVideoButton = this.page.locator('div#integrityadvocate_help a');
     private readonly makePhotoButton = this.page.locator('input#integrityadvocate_btnSmContinue');
+    private readonly continueButton = this.page.locator('input#integrityadvocate_btnContinue');
     private readonly tryAgainButton = this.page.locator('input#integrityadvocate_btnTryAgain');
-    private readonly photoFocusContainer = this.page.locator('img#integrityadvocate_overlay_photoid');
+    private readonly photoFocusContainer = this.page.locator('div#integrityadvocate_webcam');
     private readonly editPhotoButton = this.page.locator('input#integrityadvocate_btnMask');
+    private readonly cancelEditingButton = this.page.locator('input#integrityadvocate_btnMaskCancel');
+
 
     async clickHelp(){
         this.logger.info('Clicking help button');
@@ -30,12 +33,23 @@ export class AccessPage extends BasePage {
     async clickMakePhoto(){
         this.logger.info('Clicking make photo button');
         await this.photoFocusContainer.waitFor({state: 'visible', timeout: 10000});
-        await this.makePhotoButton.click();
+        await this.continueButton.click();
+    }
+
+    async clickContinue(){
+        this.logger.info('Clicking continue button');
+        await this.continueButton.click();
+    }
+
+    async clickOnContinueDialog(){
+        this.logger.info('Clicking on continue dialog');
+        await this.page.click('input#integrityadvocate_btnContinue', { force: true });
+          
     }
 
     async isTryAgainButtonVisible(){
         this.logger.info('Checking if try again button is visible');
-        return await this.tryAgainButton.isVisible();
+        return this.tryAgainButton.isVisible();
     }
 
     async clickTryAgain(){
@@ -46,6 +60,22 @@ export class AccessPage extends BasePage {
     async isPhotoFocusContainerVisible(){
         this.logger.info('Checking if photo focus container is visible');
         return await this.photoFocusContainer.isVisible();
+    }
+
+    async waitForTryAgainButtonVisible(){
+        this.logger.info('Waiting for try again button to be visible');
+        await this.tryAgainButton.waitFor({state: 'visible', timeout: 10000});
+    }
+
+    async clickEditPhoto(){
+        this.logger.info('Clicking edit photo button');
+        await this.editPhotoButton.click();
+    }
+
+    async isEditingPhotoButtonVisible(){
+        this.logger.info('Checking if editing photo button is visible');
+        return this.continueButton.isVisible()
+        && this.cancelEditingButton.isVisible();
     }
 
    async clickBlock(){

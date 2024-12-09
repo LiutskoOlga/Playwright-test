@@ -18,13 +18,19 @@ test.describe('Allow access to camera', () => {
         expect(await accessPage.isHelpVideoVisible()).toBeFalsy();
     });
 
-    test('Verify abiliy to try again', async ({ accessPage, context }) => {
+    test('Verify abiliy to try again', async ({ accessPage, context, adminCodeChunk }) => {
         await context.grantPermissions(['camera', 'microphone']);
-        //expect(await accessPage.isPhotoFocusContainerVisible()).toBeTruthy();
         await accessPage.clickMakePhoto();
-        expect(await accessPage.isPhotoFocusContainerVisible()).toBeFalsy();
+        await accessPage.clickContinue();
+        await accessPage.clickMakePhoto();
+        await accessPage.waitForTryAgainButtonVisible();
         expect(await accessPage.isTryAgainButtonVisible()).toBeTruthy();
         await accessPage.clickTryAgain();
-        expect(await accessPage.isPhotoFocusContainerVisible()).toBeTruthy();
-    });
+        await accessPage.clickContinue();
+        await accessPage.waitForTryAgainButtonVisible();
+        await accessPage.clickEditPhoto();
+        expect(await accessPage.isEditingPhotoButtonVisible()).toBeTruthy();
+});
+
+    
 });

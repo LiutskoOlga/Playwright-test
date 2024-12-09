@@ -7,6 +7,7 @@ export class HomePage extends BasePage {
     private readonly continueButtonLocator = this.page.locator('input#integrityadvocate_btnContinue');
     private readonly readMoreLink = this.page.locator('a#integrityadvocate_privacypolicyreadmore');
     private readonly privacyPolicyTextLocator = this.page.locator('div#integrityadvocate_privacypolicy');
+    private readonly settingButton = this.page.locator('input#integrityadvocate_btnShowBypassCode');
 
     async goto(): Promise<void> {
         this.logger.info(`Navigating to home page: ${TestData.urls.home}`);
@@ -26,5 +27,10 @@ export class HomePage extends BasePage {
     async getPrivacyPolicyText(){
         this.logger.info('Getting privacy policy text');
         return this.privacyPolicyTextLocator.textContent();
+    }
+
+    async clickSettingButton(){
+        this.logger.info('Clicking setting button');
+        await this.settingButton.click();
     }
 } 

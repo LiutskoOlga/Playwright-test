@@ -17,4 +17,14 @@ test.describe('Review main screen text', () => {
     const privacyPolicyText = await homePage.getPrivacyPolicyText();
     expect(privacyPolicyText).toBe(TestData.texts.privacyPolicyText);
   });
+
+  test('Verify entering admin code', async ({ homePage, adminCodeChunk }) => {
+    await homePage.goto();
+    await homePage.waitForPageLoad();
+    await homePage.clickSettingButton();
+    expect(await adminCodeChunk.verifyAdminChunkElements()).toBeTruthy();
+    await adminCodeChunk.enterAdminCode(TestData.fillings.adminCode);
+    const dialogText = await adminCodeChunk.getDialogText();
+    expect(dialogText).toBe('Sorry, that is an incorrect code.');
+  });
 });
