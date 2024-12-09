@@ -13,7 +13,6 @@ test('Verify positive workflow', async ({ accessPage, context, testModePage, hom
     await accessPage.clickMakePhoto();
     await accessPage.waitForTryAgainButtonVisible();
     await accessPage.clickContinue();
-    //await accessPage.dialogAccept();
     await accessPage.acceptDialog();
     await accessPage.clickContinue();
     const instructionText = await accessPage.getInstrustionText();

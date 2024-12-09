@@ -77,24 +77,4 @@ export class AccessPage extends BasePage {
         return this.continueButton.isVisible()
         && this.cancelEditingButton.isVisible();
     }
-
-   async clickBlock(){
-    this.logger.info('Clicking block button');
-    let dialogMessage = '';
-    await this.page.waitForTimeout(3000);
-        this.page.on('dialog', async (dialog) => {
-          // Automatically accept dialogs
-          await dialog.dismiss();
-          
-          // Or decline if needed
-          // await dialog.dismiss();
-        });
-      
-        // Override browser's permission dialog
-        await this.page.evaluate(() => {
-          // Mock camera access for testing
-          navigator.mediaDevices.getUserMedia = () => 
-            Promise.resolve(new MediaStream());
-        });
-   }
 } 
